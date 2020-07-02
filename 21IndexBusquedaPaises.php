@@ -9,7 +9,7 @@ $busqueda = $_GET["buscarLabel"];
         <title>Busqueda por Pais</title>
     </head>
     <body>
-        <form action="21IndexMostrarPaises.php" method="get" >
+        <form action="21MostrarPaises.php" method="get" >
             <label >Busqueda por País: <input type="text" name="buscarLavel"></label> 
 
             <input type="submit" name="buscar" value="buscar">
