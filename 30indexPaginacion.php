@@ -78,7 +78,7 @@
 
         //crea una serie de links con numero de pagina. La var miPagina contendrá el valor numérico para capturar con $_GET
         for ($i = 1; $i <= $totalPaginas; $i++) {
-            echo "<a href='?miPagina=" . $i . "'>" . $i . "</a>";
+            echo "<a href='30indexPaginacion.php?miPagina=" . $i . "'>" . $i . "</a>";
         }
         ?>
     </body>
