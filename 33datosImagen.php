@@ -5,7 +5,7 @@
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+$tipoArchivo = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
 // Check if image file is a actual image or fake image
 if (isset($_POST["submit"])) {
@@ -32,7 +32,7 @@ if ($_FILES["fileToUpload"]["size"] > 500000) {
 }
 
 // Allow certain file formats
-if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+if ($tipoArchivo != "jpg" && $tipoArchivo != "png" && $tipoArchivo != "jpeg" && $tipoArchivo != "gif") {
     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
     $uploadOk = 0;
 }
@@ -52,6 +52,7 @@ if ($uploadOk == 0) {
 echo " target_dir = $target_dir <br>";
 echo " target_file = $target_file <br>";
 
+
 // datos básicos de conexión a BBDD
 //ruta, para pruebas localHost.
 //usuario
@@ -65,38 +66,43 @@ $db_nombre = "gestion_db_imagen";
 $db_user = "root";
 $db_password = "";
 
-$conexion = mysqli_connect($db_host, $db_user, $db_password, $db_nombre);
+//$conexion = mysqli_connect($db_host, $db_user, $db_password, $db_nombre);
 //$conexion= new mysqli($db_password, $db_user, $db_nombre, $db_host);
-//$conexion= new mysqli($db_host, $db_user, $db_password, $db_nombre);
+$conexion = new mysqli($db_host, $db_user, $db_password, $db_nombre);
+
 //si caracteres no salen bien se puede probar con
 //mysqli_set_charset($conexion, "utf-8");
 $conexion->set_charset("utf-8");
-if ($conexion->errno) {
-    echo "test errno: $conexion->errno";
-    die($conexion->errno);
-}
 
-$sql = "SELECT * FROM articulos";
+// mysqli_connect_errno() devuelve true si no encuentra o conecta con BBDD
+if ($conexion->connect_errno) {
+
+    //si error, imprime mensaje y salir del código php
+    echo "fallo al conectar<br>";
+    echo $conexion->connect_errno . "<br>";
+
+
+
+    $sql = "SELECT * FROM articulos";
 
 //$resultado = mysqli_query($conexion, $sql);
-$resultado = $conexion->query($sql);
+    $resultado = $conexion->query($sql);
 
 
 
-echo "<table id='tablaListadoID'>";
-echo "<tr><th>ID</th><th>Sección</th><th>Artículo</th><th>Fecha</th><th>País</th><th>Precio</th></tr>";
+    echo "<table id='tablaListadoID'>";
+    echo "<tr><th>ID</th><th>Sección</th><th>Artículo</th><th>Fecha</th><th>País</th><th>Precio</th></tr>";
 
 //while ($fila = mysqli_fetch_array($resultado,MYSQLI_ASSOC)) {
-while ($fila = $resultado->fetch_assoc()) {
-    echo "<tr><td>" . $fila['ID'] . "</td>";
-    echo "<td>" . $fila['SECCION'] . "</td>";
-    echo "<td>" . $fila['NOMBREARTICULO'] . "</td>";
-    echo "<td>" . $fila['FECHA'] . "</td>";
-    echo "<td>" . $fila['PAISDEORIGEN'] . "</td>";
-    echo "<td>" . $fila['PRECIO'] . "</td>";
+    while ($fila = $resultado->fetch_assoc()) {
+        echo "<tr><td>" . $fila['ID'] . "</td>";
+        echo "<td>" . $fila['SECCION'] . "</td>";
+        echo "<td>" . $fila['NOMBREARTICULO'] . "</td>";
+        echo "<td>" . $fila['FECHA'] . "</td>";
+        echo "<td>" . $fila['PAISDEORIGEN'] . "</td>";
+        echo "<td>" . $fila['PRECIO'] . "</td>";
+    }
+
+    $sql = "UPDATE articulos SET IMAGEN='$target_file' WHERE NOMBREARTICULO='Tubos'";
+    $resultado = $conexion->query($sql);
 }
-
-$sql = "UPDATE articulos SET IMAGEN='$target_file' WHERE NOMBREARTICULO='Tubos'";
-$resultado = $conexion->query($sql);
-?>
-

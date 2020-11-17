@@ -19,7 +19,7 @@
 
         //si has pulsado el boton INSERTA name=cr
         //coge valores de los input text Nom,Ape y Dir
-       
+
         if (isset($_POST['cr'])) {
             $nom = $_POST['Nom'];
             $ape = $_POST['Ape'];
@@ -57,6 +57,7 @@
                         <td><?php echo $persona->DIRECCION ?></td>
 
                         <td class="bot"><a href="29BorrarCRUD.php?id=<?php echo $persona->ID ?>" ><input type='button' name='del' id='del' value='Borrar'></a></td>
+                        
                         <td class='bot'><a href="29EditarCRUD.php?id=<?php echo $persona->ID ?> 
                                            & nom=<?php echo $persona->NOMBRE ?>
                                            & ape=<?php echo $persona->APELLIDOS ?>

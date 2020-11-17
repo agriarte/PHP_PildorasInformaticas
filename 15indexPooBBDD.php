@@ -68,9 +68,6 @@
             
         }
         
-        //si caracteres no salen bien se puede probar con
-        //mysqli_set_charset($conexion, "utf-8");
-        //$conexion->set_charset("utf-8");
 
         $sql = "SELECT * FROM articulos";
         
