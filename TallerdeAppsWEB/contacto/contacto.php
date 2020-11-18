@@ -16,7 +16,7 @@ $mail->SMTPAuth = true;
 
 $mail->Username = 'info@tallerdeapps.com';
 
-$mail->Password = 'Colores2019';
+$mail->Password = 'xxxxxxxxxx';
 
 $mail->setFrom('info@tallerdeapps.com', 'Formulario Contacto');
 
